@@ -3,7 +3,7 @@ from __future__ import absolute_import, print_function
 import sys
 from os.path import dirname
 
-__version__ = '0.7.2-dev'
+__version__ = 'p-0.7.1'
 
 def detect_mode():
     try: import google.appengine
@@ -28,13 +28,10 @@ def detect_mode():
 MODE = detect_mode()
 
 MAIN_FILE = None
-if MODE in ('CHERRYPY', 'GAE-LOCAL', 'GAE-SERVER', 'FCGI-FLUP'):
-    MAIN_FILE = sys.modules['__main__'].__file__
-elif MODE == 'MOD_WSGI':
-    for module_name, module in sys.modules.items():
-        if module_name.startswith('_mod_wsgi_'):
-            MAIN_FILE = module.__file__
-            break
+for module_name, module in sys.modules.items():
+    if module_name.startswith('_mod_wsgi_'):
+        MAIN_FILE = module.__file__
+        break
 
 if MAIN_FILE is not None: MAIN_DIR = dirname(MAIN_FILE)
 else: MAIN_DIR = None
