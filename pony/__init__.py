@@ -1,6 +1,6 @@
 from __future__ import absolute_import, print_function
 
-import sys
+import os, sys
 from os.path import dirname
 
 __version__ = 'p-0.7.1'
@@ -9,9 +9,9 @@ def detect_mode():
     try: import google.appengine
     except ImportError: pass
     else:
-        try: import dev_appserver
-        except ImportError: return 'GAE-SERVER'
-        return 'GAE-LOCAL'
+        if os.environ.get('SERVER_SOFTWARE', '').startswith('Development'):
+            return 'GAE-LOCAL'
+        return 'GAE-SERVER'
 
     try: mod_wsgi = sys.modules['mod_wsgi']
     except KeyError: pass
