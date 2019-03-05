@@ -5093,6 +5093,16 @@ class Query(object):
         query._key = pretranslator_key, tuple(vartypes[name] for name in varnames), left_join
         query._database = database
 
+        import logging
+        import threading
+        log = logging.getLogger(__name__)
+        # log vars, key, thread id, database
+        log.debug('[PONYDEBUG] [Query#__init__] thread=%s db=%s query._key=%s query._vars=%s',
+                  threading.current_thread().ident,
+                  id(database),
+                  query._key,
+                  query._vars)
+
         translator = database._translator_cache.get(query._key)
         if translator is None:
             pickled_tree = pickle_ast(tree)

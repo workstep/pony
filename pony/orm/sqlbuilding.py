@@ -22,6 +22,13 @@ class Param(object):
         param.optimistic = optimistic
     def eval(param, values):
         varkey, i, j = param.paramkey
+
+        import logging
+        import threading
+        log = logging.getLogger(__name__)
+        log.debug('[PONYDEBUG] [Param#eval] thread=%s varkey=%s i=%s j=%s values=%s',
+                  threading.current_thread().ident, varkey, i, j, values)
+
         value = values[varkey]
         t = type(value)
         if i is not None:
