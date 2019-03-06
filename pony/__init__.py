@@ -3,7 +3,7 @@ from __future__ import absolute_import, print_function
 import sys
 from os.path import dirname
 
-__version__ = 'p-0.7.1'
+__version__ = 'riley-pony-debug'
 
 def detect_mode():
     try: import google.appengine
