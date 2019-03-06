@@ -5097,9 +5097,10 @@ class Query(object):
         import threading
         log = logging.getLogger(__name__)
         # log vars, key, thread id, database
-        log.debug('[PONYDEBUG] [Query#__init__] thread=%s db=%s query._key=%s query._vars=%s',
+        log.debug('[PONYDEBUG] [Query#__init__] thread=%s id(db)=%s id(query)=%s query._key=%s query._vars=%s',
                   threading.current_thread().ident,
                   id(database),
+                  id(query),
                   query._key,
                   query._vars)
 
