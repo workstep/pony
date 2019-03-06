@@ -525,8 +525,14 @@ class Database(object):
         self.priority = 0
         self._insert_cache = {}
 
+        # Has the same interface as a plain dict, but doesn't actually store
+        # anything.
+        class NullCache(dict):
+            def __setitem__(self, key, value):
+                pass
+
         # ER-diagram related stuff:
-        self._translator_cache = {}
+        self._translator_cache = NullCache()
         self._constructed_sql_cache = {}
         self.entities = {}
         self.schema = None
